@@ -11,11 +11,12 @@ import androidx.room.PrimaryKey
  */
 @Entity
 data class Note(
-    @PrimaryKey(autoGenerate = true)
-    val id:String,
     @ColumnInfo
     val title:String,
     @ColumnInfo
     val description:String,
     @ColumnInfo
-    val time:String)
+    val time:String){
+    @PrimaryKey(autoGenerate = true)
+    var id:Int?=null
+}
