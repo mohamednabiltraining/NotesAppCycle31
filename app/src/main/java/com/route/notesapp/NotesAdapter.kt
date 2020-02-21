@@ -12,7 +12,7 @@ import com.route.notesapp.DataBase.Model.Note
  * Created by Mohamed Nabil Mohamed on 2/14/2020.
  * m.nabil.fci2015@gmail.com
  */
-class NotesAdapter(var notes:List<Note>?):
+class NotesAdapter(var notes:MutableList<Note>?):
     RecyclerView.Adapter<NotesAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,7 +25,7 @@ class NotesAdapter(var notes:List<Note>?):
         return notes?.size ?:0
     }
 
-    fun changeData(list: List<Note>?){
+    fun changeData(list: MutableList<Note>?){
         this.notes= list
         notifyDataSetChanged()
     }
@@ -33,6 +33,17 @@ class NotesAdapter(var notes:List<Note>?):
         val note = notes?.get(position)
         holder.title.setText(note?.title)
         holder.date.setText(note?.time)
+    }
+
+    fun removeItem(pos:Int):Note?{
+        val note= notes?.removeAt(pos);
+        notifyItemRemoved(pos)
+        return note;
+    }
+
+    fun addItem(deletedItemPos: Int, note: Note?) {
+        notes?.add(deletedItemPos,note!!);
+        notifyItemInserted(deletedItemPos)
     }
 
     class ViewHolder(view:View):RecyclerView.ViewHolder(view){

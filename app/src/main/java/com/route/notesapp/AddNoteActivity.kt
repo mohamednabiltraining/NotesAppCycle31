@@ -1,13 +1,14 @@
 package com.route.notesapp
 
+import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
+import com.route.notesapp.Base.BaseActivity
 import com.route.notesapp.DataBase.Model.Note
 import com.route.notesapp.DataBase.MyDataBase
 import kotlinx.android.synthetic.main.activity_add_note.*
 
-class AddNoteActivity : AppCompatActivity() {
+class AddNoteActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,9 +27,24 @@ class AddNoteActivity : AppCompatActivity() {
             showSuccessMessage()
 
         })
+
+        val sharedPreferences =
+            getSharedPreferences("user_preferences",
+                Context.MODE_PRIVATE);
+       val name = sharedPreferences.getString("user_name","unknown")
     }
     fun showSuccessMessage(){
-        val builder = AlertDialog.Builder(this);
+
+        showMessage(null,R.string.note_created_successfully,
+            R.string.ok,
+            DialogInterface.OnClickListener { dialogInterface, i ->
+                dialogInterface.dismiss()
+                finish()
+            },null,null,false);
+
+
+
+       /* val builder = AlertDialog.Builder(this);
         builder.setMessage(R.string.note_created_successfully)
         builder.setPositiveButton(R.string.ok, {
                 dialogInterface, i ->
@@ -36,7 +52,7 @@ class AddNoteActivity : AppCompatActivity() {
                 finish()
             })
         builder.setCancelable(false)
-        builder.show()
+        builder.show()*/
 
     }
 }
